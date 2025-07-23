@@ -18,7 +18,7 @@ If you need:
 - ffmpeg-based HLS/MP4 support
 - Performance optimization or custom modules
 
-📩 Please contact: `maunkong@naver.com` (replace with your real one)
+📩 Please contact: `maunkong@naver.com`
 
 ---
 
