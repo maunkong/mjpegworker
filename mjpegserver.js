@@ -417,7 +417,7 @@ function startMJPEGProxyStream(vdsNo, mjpegUrl, onFail, { forRecordingOnly = fal
                             filesToDelete.forEach(file => {
                                 fs.unlink(path.join(HLS_DIR, file), () => { });
                             });
-                            console.log(`[${vdsNo}] ts 파일 ${filesToDelete.length}개 삭제됨`);
+                        
                         }
                     });
                 }
