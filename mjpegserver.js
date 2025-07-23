@@ -213,10 +213,9 @@ function startMJPEGProxyStream(vdsNo, mjpegUrl, onFail, { forRecordingOnly = fal
         });
 
         ffmpeg.stdin.on('error', (err) => {
-            console.error(`[${vdsNo}] ffmpeg.stdin 에러:`, err.message);
-
+          
             if (typeof onFail === 'function') {
-                console.error(`[${vdsNo}] ffmpeg.stdin 에러:`, err.message);
+  
                 onFail(`stdin error: ${err.message}`);
             }
 
