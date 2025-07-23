@@ -863,7 +863,6 @@ function captureMJPEG(vdsNo, mjpegUrl, duration, filename, retryCount = 0) {
             console.log(`mjpeg_saved clients = ${stream.clients} listener length = ${stream.listeners.length}`);
 
             if (stream._rawRes && stream._rawRes.destroy) {
-                console.log(`[${vdsNo}] mjpeg_saved res.data stream destroy 시도`);
                 stream._rawRes.destroy();  //
                 stream._rawRes = null;
             }
