@@ -381,7 +381,7 @@ function startMJPEGProxyStream(vdsNo, mjpegUrl, onFail, { forRecordingOnly = fal
                         streamInfo.ffmpeg.stdin.write(jpg); 
                     }
                 } catch (e) {
-                    console.error(`[${vdsNo}] ffmpeg.stdin.write 실패:`, e.message);
+          
                     cleanup();
                 }
 
