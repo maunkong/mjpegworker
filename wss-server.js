@@ -7,12 +7,12 @@ const path = require('path');
 const { verifyJwtFromUrl } = require('./auth');
 const { resetControl, getControlOwner } = require('./mjpegcontrol');
 
-const mjpegmap = require('./mjpegmap');  //스트림 Map
+const mjpegmap = require('./mjpegmap');  //
 
 const HEARTBEAT_INTERVAL = 7000;
 
 function setupPingPong(wss) {
-    wss.on('connection', (ws) => { //양쪽 등록해도 다 동작함
+    wss.on('connection', (ws) => { //
         ws.isAlive = true;
 
         ws.on('pong', () => {
@@ -30,7 +30,7 @@ function setupPingPong(wss) {
                     resetControl();
                 }
 
-                return ws.terminate(); // 강제 종료 하단 close 탐
+                return ws.terminate(); // 
             }
 
             ws.isAlive = false;
@@ -109,21 +109,14 @@ function initWSServer({ certPath, keyPath, port, getWorkerForVds, getStreamUrl  
         try {
             user = verifyJwtFromUrl(req.url);
         } catch (err) {
-            console.warn(`JWT 검증 실패: ${err.message}`);
-
-            ws.send(JSON.stringify({
-                type: 'error', message: `JWT 검증 실패: ${err.message}` }));
+          
 
             ws.close();
             return;
         }
 
         if (!streamid || !user?.userId) {
-            console.warn(`WebSocket 접속 파라미터 누락`);
-
-            ws.send(JSON.stringify({
-                type: 'error', message: `WebSocket 접속 파라미터 누락`
-            }));
+            
 
             ws.close();
             return;
@@ -153,7 +146,7 @@ function initWSServer({ certPath, keyPath, port, getWorkerForVds, getStreamUrl  
                 console.log(`vdsNo=${vdsNo} new clientsize=${mjpegmap.getClientCount(vdsNo)}`);
 
                 worker.send({ type: 'start_stream', vdsNo, url: streamUrl});
-                // 초기 clientCount 전달
+
                 worker.send({
                     type: 'update_clients',
                     vdsNo,
@@ -180,7 +173,7 @@ function initWSServer({ certPath, keyPath, port, getWorkerForVds, getStreamUrl  
             }
         }
 
-        ws.on('message', (msg) => {   //message WebSocket 기본 내장 이벤트
+        ws.on('message', (msg) => {   
             const data = JSON.parse(msg);
             if (data.type === 'resetStream' && ws.streamid === getControlOwner()) {
                 console.log(`[stream] ${ws.streamid} close, stream reset`);
@@ -193,12 +186,9 @@ function initWSServer({ certPath, keyPath, port, getWorkerForVds, getStreamUrl  
 
             mjpegmap.removeClient(vdsNo, ws);
 
-            /*if (ws.streamid === getControlOwner()) {
-                console.log(`[stream] ${ws.streamid} close, stream reset`);
-                resetControl();
-            }*/
+  
 
-            if (mjpegmap.getClientCount(vdsNo) === 0 ) { //시청자 0명
+            if (mjpegmap.getClientCount(vdsNo) === 0 ) { 
 
                 if (worker && worker.isConnected()) {
                     worker.send({ type: 'stop_stream', vdsNo });
